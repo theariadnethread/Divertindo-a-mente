@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Divertindo a Mente</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Gochi+Hand&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Fredoka', 'sans-serif'],
+              hand: ['"Gochi Hand"', 'cursive'],
+            },
+            colors: {
+              'pastel-pink': '#F2A0A8',
+              'pastel-blue': '#A8DEDE',
+              'pastel-peach': '#FFCBA4',
+              'pastel-beige': '#E8D4B8',
+              'pastel-green': '#90E0B0',
+              'pastel-yellow': '#FDFD96',
+              'marker-black': '#2D2D2D', 
+              // New Logo Palette
+              'logo-red': '#C94C4C',
+              'logo-green': '#5E8B7E',
+              'logo-teal': '#3B8686',
+              'logo-orange': '#EEA47F',
+              'logo-wood': '#D4A373',
+              'logo-dark': '#2F2F2F',
+            },
+            boxShadow: {
+              'comic': '4px 4px 0px 0px #2D2D2D',
+              'comic-hover': '2px 2px 0px 0px #2D2D2D',
+              'comic-pink': '4px 4px 0px 0px #F2A0A8',
+              'comic-blue': '4px 4px 0px 0px #A8DEDE',
+              'comic-red': '4px 4px 0px 0px #C94C4C',
+            },
+            animation: {
+              'float': 'float 6s ease-in-out infinite',
+              'float-delayed': 'float 6s ease-in-out 3s infinite',
+              'wiggle': 'wiggle 2s ease-in-out infinite',
+              'spin-slow': 'spin 12s linear infinite',
+              'bounce-slow': 'bounce 3s infinite',
+              'fade-in': 'fadeIn 0.5s ease-out',
+              'marquee': 'marquee 40s linear infinite',
+              'marquee-reverse': 'marqueeReverse 40s linear infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+                '50%': { transform: 'translateY(-15px) rotate(2deg)' },
+              },
+              wiggle: {
+                '0%, 100%': { transform: 'rotate(-3deg)' },
+                '50%': { transform: 'rotate(3deg)' },
+              },
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              marquee: {
+                '0%': { transform: 'translateX(0)' },
+                '100%': { transform: 'translateX(-50%)' },
+              },
+              marqueeReverse: {
+                '0%': { transform: 'translateX(-50%)' },
+                '100%': { transform: 'translateX(0)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #FFF9F5;
+        overflow-x: hidden;
+      }
+      
+      /* Hand drawn border effect */
+      .border-messy-1 {
+        border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+      }
+      .border-messy-2 {
+        border-radius: 25px 55px 15px 45px / 55px 15px 45px 25px;
+      }
+      .border-messy-3 {
+        border-radius: 15px 225px 25px 235px / 255px 25px 225px 25px;
+      }
+      
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #FFF9F5;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #C94C4C; /* Changed to logo-red */
+        border: 2px solid #FFF9F5;
+        border-radius: 10px;
+      }
+
+      .bg-grid-paper {
+        background-size: 40px 40px;
+        background-image:
+          linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+      }
+
+      /* Playful Sticker Effect */
+      .sticker {
+        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      
+      .sticker:hover {
+        transform: scale(1.02) rotate(1deg);
+      }
+
+      /* Scroll Animations - FIX: Using translate/scale instead of transform to avoid Tailwind conflicts */
+      .animate-on-scroll {
+        opacity: 0;
+        translate: 0 40px;
+        transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), translate 0.8s cubic-bezier(0.22, 1, 0.36, 1), scale 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: opacity, translate, scale;
+      }
+
+      .animate-on-scroll.is-visible {
+        opacity: 1;
+        translate: 0 0;
+      }
+
+      .animate-zoom {
+        scale: 0.85;
+      }
+      .animate-zoom.is-visible {
+        scale: 1;
+      }
+
+      .animate-fade-right {
+        translate: -40px 0;
+      }
+      .animate-fade-right.is-visible {
+        translate: 0 0;
+      }
+
+      .animate-fade-left {
+        translate: 40px 0;
+      }
+      .animate-fade-left.is-visible {
+        translate: 0 0;
+      }
+      
+      .delay-100 { transition-delay: 100ms; }
+      .delay-200 { transition-delay: 200ms; }
+      .delay-300 { transition-delay: 300ms; }
+      .delay-400 { transition-delay: 400ms; }
+      .delay-500 { transition-delay: 500ms; }
+
+      /* Reduced motion preference */
+      @media (prefers-reduced-motion: reduce) {
+        .animate-on-scroll {
+          opacity: 1 !important;
+          translate: 0 0 !important;
+          scale: 1 !important;
+          transition: none !important;
+        }
+        .animate-marquee, .animate-marquee-reverse {
+          animation: none !important;
+          transform: none !important;
+          overflow-x: auto;
+        }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "lucide-react": "https://esm.sh/lucide-react@^0.559.0",
+    "react/": "https://esm.sh/react@^19.2.1/",
+    "react": "https://esm.sh/react@^19.2.1",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.1/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
